@@ -1,0 +1,54 @@
+{
+  "$schema": "1.0",
+  "description": "CustodyComms Update Manifest - Controls forced updates and version requirements",
+
+  "app": {
+    "version": "1.0.0",
+    "channel": "stable",
+    "releaseDate": "2025-11-24"
+  },
+
+  "forceUpdate": {
+    "enabled": false,
+    "minVersion": "1.0.0",
+    "severity": "NONE",
+    "message": null,
+    "offlineGraceDays": 7
+  },
+
+  "runtime": {
+    "version": "1.0.0",
+    "minVersion": "1.0.0",
+    "forceUpdate": false,
+    "components": {
+      "python": {
+        "version": "3.11.9",
+        "mac": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/python-mac.tar.gz",
+        "win": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/python-win64.zip",
+        "linux": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/python-linux.tar.gz"
+      },
+      "ollama": {
+        "version": "0.4.1",
+        "mac": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/ollama-mac.tar.gz",
+        "win": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/ollama-win64.zip",
+        "linux": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/ollama-linux.tar.gz"
+      },
+      "models": {
+        "version": "1.0.0",
+        "url": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/ollama-models.tar.gz"
+      }
+    }
+  },
+
+  "changelog": {
+    "1.0.0": {
+      "date": "2025-11-24",
+      "highlights": [
+        "Initial release",
+        "Import SMS, email, and messaging app data",
+        "Generate court-ready PDF evidence exhibits",
+        "AI-powered sentiment analysis"
+      ]
+    }
+  }
+}

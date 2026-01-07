@@ -3,17 +3,17 @@
   "description": "CustodyComms Update Manifest - Controls forced updates and version requirements",
 
   "app": {
-    "version": "1.0.0",
+    "version": "1.2.2",
     "channel": "stable",
-    "releaseDate": "2025-11-24"
+    "releaseDate": "2026-01-06"
   },
 
   "forceUpdate": {
-    "enabled": false,
-    "minVersion": "1.0.0",
-    "severity": "NONE",
-    "message": null,
-    "offlineGraceDays": 7
+    "enabled": true,
+    "minVersion": "1.2.2",
+    "severity": "HIGH",
+    "message": "A required system stabilization update is available. Please update to continue using CustodyComms.",
+    "offlineGraceDays": 1
   },
 
   "runtime": {
@@ -41,6 +41,14 @@
   },
 
   "changelog": {
+    "1.2.2": {
+      "date": "2026-01-06",
+      "highlights": [
+        "System stabilization features",
+        "Dashboard analytics improvements",
+        "Backend authentication enhancements"
+      ]
+    },
     "1.0.0": {
       "date": "2025-11-24",
       "highlights": [

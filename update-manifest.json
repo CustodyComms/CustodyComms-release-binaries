@@ -9,8 +9,8 @@
   },
 
   "forceUpdate": {
-    "enabled": true,
-    "minVersion": "1.2.2",
+    "enabled": false,
+    "minVersion": "1.2.1",
     "severity": "HIGH",
     "message": "A required system stabilization update is available. Please update to continue using CustodyComms.",
     "offlineGraceDays": 1

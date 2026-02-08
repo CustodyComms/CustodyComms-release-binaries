@@ -3,9 +3,9 @@
   "description": "CustodyComms Update Manifest - Controls forced updates and version requirements",
 
   "app": {
-    "version": "1.5.5",
+    "version": "1.5.6",
     "channel": "stable",
-    "releaseDate": "2026-02-05"
+    "releaseDate": "2026-02-07"
   },
 
   "forceUpdate": {
@@ -41,25 +41,34 @@
   },
 
   "changelog": {
+    "1.5.6": {
+      "date": "2026-02-07",
+      "highlights": [
+        "Fixed Multi-Exhibit Exports â€” Message tables now appear correctly in Appendix D for all child exhibits",
+        "Export Modal Reset â€” FRE 902(14) validation errors no longer persist between export sessions",
+        "Window Loading Polish â€” No more white flash when app starts",
+        "Security Hardened â€” 200+ security tests added covering Electron sandbox, IPC, and data protection"
+      ]
+    },
     "1.5.5": {
       "date": "2026-02-05",
       "highlights": [
-        "Fixed import issue — Drag-and-drop and file selection now work reliably",
-        "Cleaner PDF exports — Reduced spacing between messages for more compact, readable evidence packages",
-        "Faster demo refresh — Old cached screenshots are automatically cleared when demo data updates",
-        "Stability improvements — Various bug fixes and performance optimizations"
+        "Fixed import issue â€” Drag-and-drop and file selection now work reliably",
+        "Cleaner PDF exports â€” Reduced spacing between messages for more compact, readable evidence packages",
+        "Faster demo refresh â€” Old cached screenshots are automatically cleared when demo data updates",
+        "Stability improvements â€” Various bug fixes and performance optimizations"
       ]
     },
     "1.5.0": {
       "date": "2026-01-30",
       "highlights": [
-        "Dark Mode is here — Choose Light, Dark, or match your system settings automatically",
-        "Android SMS support — Import XML backups from SMS Backup & Restore",
-        "Stronger Evidence Protection — Pre-export verification ensures source files haven't been modified",
-        "Sign your affidavit electronically — FRE 902(14) certification directly in the app",
-        "Redesigned Help Center — Interactive Quick Start Guide with progress tracking",
-        "Easier multi-file imports — Clear popup when dropping multiple files",
-        "Premium polish — Smooth animations, ripple effects, and a more responsive feel"
+        "Dark Mode is here â€” Choose Light, Dark, or match your system settings automatically",
+        "Android SMS support â€” Import XML backups from SMS Backup & Restore",
+        "Stronger Evidence Protection â€” Pre-export verification ensures source files haven't been modified",
+        "Sign your affidavit electronically â€” FRE 902(14) certification directly in the app",
+        "Redesigned Help Center â€” Interactive Quick Start Guide with progress tracking",
+        "Easier multi-file imports â€” Clear popup when dropping multiple files",
+        "Premium polish â€” Smooth animations, ripple effects, and a more responsive feel"
       ]
     },
     "1.2.2": {

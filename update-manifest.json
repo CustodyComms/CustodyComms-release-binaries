@@ -1,0 +1,45 @@
+{
+  "$schema": "1.0",
+  "description": "CustodyComms Update Manifest",
+  "app": {
+    "version": "1.8.0",
+    "channel": "stable",
+    "releaseDate": "2026-04-06"
+  },
+  "forceUpdate": {
+    "enabled": false,
+    "minVersion": "1.2.1",
+    "severity": "NORMAL",
+    "message": "A required update is available.",
+    "offlineGraceDays": 7
+  },
+  "runtime": {
+    "version": "1.0.0",
+    "minVersion": "1.0.0",
+    "forceUpdate": false
+  },
+  "changelog": {
+    "1.8.0": {
+      "date": "2026-04-06",
+      "highlights": [
+        "Incident details and sharing - Richer incident views with the ability to share individual incidents with your attorney securely. Version history keeps everyone in sync. Free for all users.",
+        "CustodyComms for iOS - View shared incidents on your iPhone. Free on the App Store.",
+        "Share with anyone - Share with people who haven't signed up yet. They'll get access automatically when they join.",
+        "TalkingParents support - Import your TalkingParents messages directly into CustodyComms",
+        "OurFamilyWizard improvements - Better parsing for edge cases and non-standard export formats",
+        "Stay in the loop - Get timely updates, promotions, and important information right inside the app",
+        "Help Chat - Ask questions and get instant answers from the help manual, powered by AI",
+        "Smoother and more reliable - Faster sign-in, lower memory usage, and improved dark mode and accessibility"
+      ]
+    },
+    "1.5.6": {
+      "date": "2026-02-06",
+      "highlights": [
+        "Fixed Forensic exports - Appendix D now works correctly in multi-exhibit exports",
+        "Smoother export experience - Export settings reset properly between sessions",
+        "Dark Mode polish - FRE 902(14) certification section styled for dark mode",
+        "Enhanced security - Comprehensive security hardening across the application"
+      ]
+    }
+  }
+}

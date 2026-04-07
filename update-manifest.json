@@ -1,21 +1,18 @@
 {
   "$schema": "1.0",
   "description": "CustodyComms Update Manifest - Controls forced updates and version requirements",
-
   "app": {
     "version": "1.8.0",
     "channel": "stable",
     "releaseDate": "2026-03-13"
   },
-
   "forceUpdate": {
-    "enabled": true,
+    "enabled": false,
     "minVersion": "1.8.0",
     "severity": "CRITICAL",
     "message": "Critical security update required. This version can no longer connect to CustodyComms services.",
     "offlineGraceDays": 0
   },
-
   "runtime": {
     "version": "1.0.0",
     "minVersion": "1.0.0",
@@ -42,7 +39,6 @@
       }
     }
   },
-
   "changelog": {
     "1.8.0": {
       "date": "2026-03-13",
@@ -72,40 +68,40 @@
     "1.6.0": {
       "date": "2026-02-15",
       "highlights": [
-        "Security remediation — 18 fixes across CRITICAL, HIGH, and MEDIUM findings",
-        "TalkingParents plugin — Full support for TalkingParents message imports",
-        "CCM sharing hardening — Encrypted cross-platform case sharing",
-        "Firebase Security Rules update — Tighter access controls"
+        "Security remediation \u2014 18 fixes across CRITICAL, HIGH, and MEDIUM findings",
+        "TalkingParents plugin \u2014 Full support for TalkingParents message imports",
+        "CCM sharing hardening \u2014 Encrypted cross-platform case sharing",
+        "Firebase Security Rules update \u2014 Tighter access controls"
       ]
     },
     "1.5.6": {
       "date": "2026-02-06",
       "highlights": [
-        "Fixed Forensic exports — Appendix D (Message Table) now works correctly in multi-exhibit exports",
-        "Smoother export experience — Export settings reset properly between sessions",
-        "Dark Mode polish — FRE 902(14) certification section styled for dark mode",
-        "Enhanced security — Comprehensive security hardening across the application"
+        "Fixed Forensic exports \u2014 Appendix D (Message Table) now works correctly in multi-exhibit exports",
+        "Smoother export experience \u2014 Export settings reset properly between sessions",
+        "Dark Mode polish \u2014 FRE 902(14) certification section styled for dark mode",
+        "Enhanced security \u2014 Comprehensive security hardening across the application"
       ]
     },
     "1.5.5": {
       "date": "2026-02-05",
       "highlights": [
-        "Fixed import issue — Drag-and-drop and file selection now work reliably",
-        "Cleaner PDF exports — Reduced spacing between messages for more compact, readable evidence packages",
-        "Faster demo refresh — Old cached screenshots are automatically cleared when demo data updates",
-        "Stability improvements — Various bug fixes and performance optimizations"
+        "Fixed import issue \u2014 Drag-and-drop and file selection now work reliably",
+        "Cleaner PDF exports \u2014 Reduced spacing between messages for more compact, readable evidence packages",
+        "Faster demo refresh \u2014 Old cached screenshots are automatically cleared when demo data updates",
+        "Stability improvements \u2014 Various bug fixes and performance optimizations"
       ]
     },
     "1.5.0": {
       "date": "2026-01-30",
       "highlights": [
-        "Dark Mode is here — Choose Light, Dark, or match your system settings automatically",
-        "Android SMS support — Import XML backups from SMS Backup & Restore",
-        "Stronger Evidence Protection — Pre-export verification ensures source files haven't been modified",
-        "Sign your affidavit electronically — FRE 902(14) certification directly in the app",
-        "Redesigned Help Center — Interactive Quick Start Guide with progress tracking",
-        "Easier multi-file imports — Clear popup when dropping multiple files",
-        "Premium polish — Smooth animations, ripple effects, and a more responsive feel"
+        "Dark Mode is here \u2014 Choose Light, Dark, or match your system settings automatically",
+        "Android SMS support \u2014 Import XML backups from SMS Backup & Restore",
+        "Stronger Evidence Protection \u2014 Pre-export verification ensures source files haven't been modified",
+        "Sign your affidavit electronically \u2014 FRE 902(14) certification directly in the app",
+        "Redesigned Help Center \u2014 Interactive Quick Start Guide with progress tracking",
+        "Easier multi-file imports \u2014 Clear popup when dropping multiple files",
+        "Premium polish \u2014 Smooth animations, ripple effects, and a more responsive feel"
       ]
     },
     "1.0.0": {

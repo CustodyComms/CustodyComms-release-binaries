@@ -3,17 +3,17 @@
   "description": "CustodyComms Update Manifest - Controls forced updates and version requirements",
 
   "app": {
-    "version": "1.5.6",
+    "version": "1.8.0",
     "channel": "stable",
-    "releaseDate": "2026-02-07"
+    "releaseDate": "2026-03-13"
   },
 
   "forceUpdate": {
-    "enabled": false,
-    "minVersion": "1.2.1",
-    "severity": "NONE",
-    "message": null,
-    "offlineGraceDays": 7
+    "enabled": true,
+    "minVersion": "1.8.0",
+    "severity": "CRITICAL",
+    "message": "Critical security update required. This version can no longer connect to CustodyComms services.",
+    "offlineGraceDays": 0
   },
 
   "runtime": {
@@ -23,7 +23,10 @@
     "components": {
       "python": {
         "version": "3.11.9",
-        "mac": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/python-mac.tar.gz",
+        "mac": {
+          "arm64": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/python-mac-arm64.tar.gz",
+          "x64": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/python-mac-x64.tar.gz"
+        },
         "win": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/python-win64.zip",
         "linux": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/python-linux.tar.gz"
       },
@@ -41,42 +44,68 @@
   },
 
   "changelog": {
-    "1.5.6": {
-      "date": "2026-02-07",
+    "1.8.0": {
+      "date": "2026-03-13",
       "highlights": [
-        "Fixed Multi-Exhibit Exports â€” Message tables now appear correctly in Appendix D for all child exhibits",
-        "Export Modal Reset â€” FRE 902(14) validation errors no longer persist between export sessions",
-        "Window Loading Polish â€” No more white flash when app starts",
-        "Security Hardened â€” 200+ security tests added covering Electron sandbox, IPC, and data protection"
+        "Incident details and sharing - Richer incident views with the ability to share individual incidents with your attorney securely. Version history keeps everyone in sync. Free for all users.",
+        "CustodyComms for iOS - View shared incidents on your iPhone. Free on the App Store.",
+        "Share with anyone - Share with people who haven't signed up yet. They'll get access automatically when they join.",
+        "TalkingParents support - Import your TalkingParents messages directly into CustodyComms",
+        "OurFamilyWizard improvements - Better parsing for edge cases and non-standard export formats",
+        "Stay in the loop - Get timely updates, promotions, and important information right inside the app",
+        "Help Chat - Ask questions and get instant answers from the help manual, powered by AI",
+        "Smoother and more reliable - Faster sign-in, lower memory usage, and improved dark mode and accessibility"
+      ]
+    },
+    "1.7.1": {
+      "date": "2026-03-04",
+      "highlights": [
+        "Share incidents with your attorney - Send individual incident details securely, with version history so everyone stays in sync. Free for all users.",
+        "CustodyComms for iOS - View shared incidents on your iPhone. Free on the App Store.",
+        "TalkingParents support - Import your TalkingParents messages directly into CustodyComms",
+        "Faster and more reliable - Quicker startup, lower memory usage, and graceful recovery",
+        "Accessibility improvements - Better contrast, keyboard navigation, and screen reader support",
+        "Dark mode polish - Login, signup, and all screens now look great in dark mode",
+        "Stronger security - Refreshed all security credentials and hardened the app end-to-end"
+      ]
+    },
+    "1.6.0": {
+      "date": "2026-02-15",
+      "highlights": [
+        "Security remediation — 18 fixes across CRITICAL, HIGH, and MEDIUM findings",
+        "TalkingParents plugin — Full support for TalkingParents message imports",
+        "CCM sharing hardening — Encrypted cross-platform case sharing",
+        "Firebase Security Rules update — Tighter access controls"
+      ]
+    },
+    "1.5.6": {
+      "date": "2026-02-06",
+      "highlights": [
+        "Fixed Forensic exports — Appendix D (Message Table) now works correctly in multi-exhibit exports",
+        "Smoother export experience — Export settings reset properly between sessions",
+        "Dark Mode polish — FRE 902(14) certification section styled for dark mode",
+        "Enhanced security — Comprehensive security hardening across the application"
       ]
     },
     "1.5.5": {
       "date": "2026-02-05",
       "highlights": [
-        "Fixed import issue â€” Drag-and-drop and file selection now work reliably",
-        "Cleaner PDF exports â€” Reduced spacing between messages for more compact, readable evidence packages",
-        "Faster demo refresh â€” Old cached screenshots are automatically cleared when demo data updates",
-        "Stability improvements â€” Various bug fixes and performance optimizations"
+        "Fixed import issue — Drag-and-drop and file selection now work reliably",
+        "Cleaner PDF exports — Reduced spacing between messages for more compact, readable evidence packages",
+        "Faster demo refresh — Old cached screenshots are automatically cleared when demo data updates",
+        "Stability improvements — Various bug fixes and performance optimizations"
       ]
     },
     "1.5.0": {
       "date": "2026-01-30",
       "highlights": [
-        "Dark Mode is here â€” Choose Light, Dark, or match your system settings automatically",
-        "Android SMS support â€” Import XML backups from SMS Backup & Restore",
-        "Stronger Evidence Protection â€” Pre-export verification ensures source files haven't been modified",
-        "Sign your affidavit electronically â€” FRE 902(14) certification directly in the app",
-        "Redesigned Help Center â€” Interactive Quick Start Guide with progress tracking",
-        "Easier multi-file imports â€” Clear popup when dropping multiple files",
-        "Premium polish â€” Smooth animations, ripple effects, and a more responsive feel"
-      ]
-    },
-    "1.2.2": {
-      "date": "2026-01-06",
-      "highlights": [
-        "System stabilization features",
-        "Dashboard analytics improvements",
-        "Backend authentication enhancements"
+        "Dark Mode is here — Choose Light, Dark, or match your system settings automatically",
+        "Android SMS support — Import XML backups from SMS Backup & Restore",
+        "Stronger Evidence Protection — Pre-export verification ensures source files haven't been modified",
+        "Sign your affidavit electronically — FRE 902(14) certification directly in the app",
+        "Redesigned Help Center — Interactive Quick Start Guide with progress tracking",
+        "Easier multi-file imports — Clear popup when dropping multiple files",
+        "Premium polish — Smooth animations, ripple effects, and a more responsive feel"
       ]
     },
     "1.0.0": {
@@ -84,7 +113,7 @@
       "highlights": [
         "Initial release",
         "Import SMS, email, and messaging app data",
-        "Generate court-ready PDF evidence exhibits",
+        "Generate evidence-ready PDF exhibits",
         "AI-powered sentiment analysis"
       ]
     }

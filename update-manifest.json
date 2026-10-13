@@ -1,24 +1,148 @@
 {
   "$schema": "1.0",
-  "description": "CustodyComms Update Manifest",
+  "description": "CustodyComms Update Manifest - Controls forced updates and version requirements",
   "app": {
-    "version": "1.8.1",
+    "version": "2.0.0",
     "channel": "stable",
-    "releaseDate": "2026-04-06"
+    "releaseDate": "2026-10-13"
   },
   "forceUpdate": {
+    "_doc": "appliesTo NAMES WHO THIS FORCE UPDATE IS FOR, as <process.platform>-<process.arch> keys. A client whose platform/arch cannot fetch a listed target is NOT blocked. It is REQUIRED whenever enabled is true: from v2.0 on, a forceUpdate block with no appliesTo is treated as FORCE_UPDATE_NO_SCOPE_DECLARED and blocks nobody. That is deliberate — the force-update window is closable:false, so blocking a client that has no artifact to fetch is an unrecoverable lockout with no server-side rollback. See update/release-targets.js. WARNING: clients at v1.9.0 and below SHIP THE OLD GATE AND IGNORE THIS FIELD ENTIRELY — raising minVersion above what those clients can install locks every one of them out regardless of what is written here.",
+    "_lock": "O-12 (LOCKED-DECISIONS-2026-09-03.md:56): force-update is OFF for the v2.0 cut; the ordinary optional update prompt is the only thing users see. enabled:false is the lock. Do NOT flip this to true as part of a version bump — it is an owner contract change, and frontend/tests/update/force-update-arch-gate.test.js pins it to false so the flip cannot land silently. minVersion/appliesTo/severity/message are kept in their documented shape so the block stays a template, not a fragment.",
     "enabled": false,
-    "minVersion": "1.2.1",
-    "severity": "NORMAL",
-    "message": "A required update is available.",
-    "offlineGraceDays": 7
+    "minVersion": "1.9.0",
+    "appliesTo": [
+      "darwin-arm64"
+    ],
+    "severity": "HIGH",
+    "message": "Important sign-in + security fix: 1.9.0 finishes closing the sign-in recovery loop that affected some users on prior versions, and adds a multi-tenant data-isolation hardening pass on the AI incident-analysis routes. Recommended for all users; 1-day grace before the update becomes mandatory.",
+    "offlineGraceDays": 1
+  },
+  "features": {
+    "_doc": "Remote feature flags. Parsed by update-manager.js (this.manifest.features) and exposed to the renderer via update:get-features → window.appConfig.features. OPS KILL SWITCH: set a flag to false here to dark the corresponding UI surface for all clients on the next manifest fetch — no redeploy. navigator_chat=false darks the Matter Builder 'Ask the AI' live-chat engine (MatterBuilderRailModule.navigatorChatEnabled); the frontend probe ALSO fails closed on any error. NAVIGATOR-CHAT-CUT (owner 2026-09-13): navigator_chat is FALSE at the cut and MatterBuilderRailModule.navigatorChatEnabled() is default-OFF to match — the two must move together, and scripts/cut-mac-update-release.sh refuses the cut unless this key is exactly false. Turning it back on ships an interactive AI chat the owner declined; it is not a cosmetic toggle. NOTE what it does NOT gate: the 'Your guide' panel. Since MB-GUIDE-INFORMATIONAL (0cc90d6a) the panel is matter-builder-render.guide() in EVERY flag state, so darking this flag does not dark the panel.",
+    "navigator_chat": false
   },
   "runtime": {
     "version": "1.0.0",
     "minVersion": "1.0.0",
-    "forceUpdate": false
+    "forceUpdate": false,
+    "components": {
+      "python": {
+        "version": "3.11.9",
+        "mac": {
+          "arm64": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/python-mac-arm64.tar.gz",
+          "x64": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/python-mac-x64.tar.gz"
+        },
+        "win": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/python-win64.zip",
+        "linux": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/python-linux.tar.gz"
+      },
+      "ollama": {
+        "version": "0.4.1",
+        "mac": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/ollama-mac.tar.gz",
+        "win": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/ollama-win64.zip",
+        "linux": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/ollama-linux.tar.gz"
+      },
+      "models": {
+        "version": "1.0.0",
+        "url": "https://github.com/custodycomms/custodycomms-releases/releases/download/runtime-v1.0.0/ollama-models.tar.gz"
+      }
+    }
   },
   "changelog": {
+    "2.0.0": {
+      "date": "2026-10-13",
+      "highlights": [
+        "Quick Start: drop in a message file and CustodyComms brings it in and finds your incidents. Matter Builder (Beta) builds the whole matter with you, step by step.",
+        "Evidence Library: your documents and photos, beside your messages. One exhibit can now hold messages, documents and photos together.",
+        "Overview shows where a matter stands, on one page. Order Rules lets you write down what your parenting order says, in your own words, and connect incidents to it.",
+        "Sign in with Apple or Google. When you share a matter, you choose whether it includes pictures and whether to also send the whole original files.",
+        "Imports now ask you, or refuse and explain, instead of quietly guessing. Incidents you write yourself now survive a re-scan.",
+        "Message times name their time zone and print in the order they were sent. If a file doesn’t say its zone, the app asks you once. Older times it can’t place say “(time zone not recorded)”.",
+        "Your exported documents have changed: a rewritten certification page with a chain-of-custody affidavit, and custody page times marked “(UTC)”. An export may not match a v1.9 export, so re-export and compare."
+      ]
+    },
+    "1.9.0": {
+      "date": "2026-05-06",
+      "highlights": [
+        "Sign-in recovery loop — root-cause fix. Closes the catch-22 where clicking a session-health step-up prompt could leave you locked out (one customer was stuck for 6h47m on 2026-05-05). The banner now distinguishes step-up prompts from sign-out and writes a deterministic force-login marker that survives reload and never depends on Firebase storage being clean. Sentinel marker is now structured JSON with a 7-day TTL and fails closed when unreadable.",
+        "Multi-tenant data isolation — AI incident analysis routes now case-scope every database lookup. Closes a defense-in-depth gap where colliding incident IDs from the demo seeder could in theory let one user's AI prompt include another user's messages. Existing tenant data was never exposed in production-observed traffic; this is hardening, not a remediation.",
+        "Demo-seeder collision fix. New users no longer share incident-group IDs across cases (root cause of the AI-isolation issue above). Existing colliding rows are deduped automatically on first launch with a pre-migration backup retained for 7 days.",
+        "Per-user AI concurrency cap. One Deep AI run at a time per user (returns 409 instead of stacking). Prevents memory pressure on machines running multiple analysis tabs.",
+        "App session heartbeat. New 5-minute beacon (`app_session_heartbeat`) lets us measure active-time-by-state without back-deriving from suppression accumulator math. Telemetry-only, no UI change.",
+        "Defense-in-depth on the menu Sign Out button — now writes the same sign-out sentinel the banner does, closing a previously-unprotected Firebase storage resurrection path."
+      ]
+    },
+    "1.8.9": {
+      "date": "2026-04-30",
+      "highlights": [
+        "Closes the sign-in recovery loop affecting some long-session users on 1.8.5–1.8.8: the app now renews your backend session token automatically on 401, instead of falling back to a working-but-stale Firebase auth and re-emitting the loop on every poll. Sixteen users on prior versions had this background loop firing every ~3 minutes; the fix targets the proven code path.",
+        "Stronger security on session refresh: on token-replay, device-mismatch, or refresh-token-expired failures, the app now clears all credentials and routes you to login (previously some of these fell through to a generic error).",
+        "Backend hardening: refresh no longer auto-renews step-up verification. Refresh is token rotation, not identity re-verification.",
+        "New telemetry events (auth_backend_refresh_attempted/succeeded/failed) so we can confirm the fix is firing in production for affected users."
+      ]
+    },
+    "1.8.8": {
+      "date": "2026-04-29",
+      "highlights": [
+        "Fixed a sign-in recovery loop affecting users with degraded local sessions — the app now recognizes when verification is required and shows a clear prompt instead of silently retrying. Resolves customer reports from 2026-04-25.",
+        "Step-up verification screens now keep your session 'pending' on disk, so a brief idle period or app reload doesn't kick you back into the loop.",
+        "Token refresh scheduler now stops itself if your local session goes bad — no more hourly retries on a broken state.",
+        "Build pipeline now verifies fix markers in the shipped artifact before signing — prevents another 'fix shipped but didn't reach users' scenario.",
+        "Improved telemetry: every event now reports app_version so we can confirm rollouts hit users."
+      ]
+    },
+    "1.8.7": {
+      "date": "2026-04-26",
+      "highlights": [
+        "Fixed connection issue introduced in 1.8.6 that prevented backend from starting",
+        "All v1.8.6 sign-in and session recovery improvements included"
+      ]
+    },
+    "1.8.6": {
+      "date": "2026-04-26",
+      "highlights": [
+        "Fixed a sign-in issue introduced in 1.8.5 that left some users with a blank matters list and no way to recover. The app now detects and breaks out of the loop, and surfaces a clear sign-in prompt if anything goes wrong.",
+        "Trusted-device sign-in is now persistent — once a step-up sign-in succeeds on this machine, you stay signed in across launches without needing to re-verify each time.",
+        "New 'Copy diagnostic' button in the sign-in error banner — share a privacy-safe diagnostic with support without leaking tokens or personal info.",
+        "Stability and reliability improvements throughout the sign-in flow."
+      ]
+    },
+    "1.8.5": {
+      "date": "2026-04-24",
+      "highlights": [
+        "Fixed empty matters list after auto-update — matters load immediately without logout/login",
+        "Improved session recovery when session files are missing after update",
+        "Security and stability improvements"
+      ]
+    },
+    "1.8.4": {
+      "date": "2026-04-24",
+      "highlights": [
+        "Fixed empty matters list after auto-update — no more logout/login required",
+        "Smoother session recovery after updates",
+        "Security and stability improvements"
+      ]
+    },
+    "1.8.3": {
+      "date": "2026-04-23",
+      "highlights": [
+        "Sharing large cases now works reliably — 250K+ message matters send and import without errors",
+        "Smoother and more reliable sign-in experience",
+        "Improved first-time device setup",
+        "Stability improvements for large imports and exports",
+        "Security and performance enhancements"
+      ]
+    },
+    "1.8.2": {
+      "date": "2026-04-08",
+      "highlights": [
+        "Fixed crash on fresh install — New users can now launch the app without errors",
+        "MFA setup fully functional — Two-factor authentication with QR codes works on all installs",
+        "Automatic runtime patching — Updating from older versions seamlessly adds required components",
+        "OurFamilyWizard import improvements — Better parsing for edge cases and non-standard formats",
+        "Import wizard streamlined — Cleaner upload flow with improved error handling"
+      ]
+    },
     "1.8.1": {
       "date": "2026-04-06",
       "highlights": [
@@ -34,7 +158,7 @@
       ]
     },
     "1.8.0": {
-      "date": "2026-04-06",
+      "date": "2026-03-13",
       "highlights": [
         "Incident details and sharing - Richer incident views with the ability to share individual incidents with your attorney securely. Version history keeps everyone in sync. Free for all users.",
         "CustodyComms for iOS - View shared incidents on your iPhone. Free on the App Store.",
@@ -46,13 +170,64 @@
         "Smoother and more reliable - Faster sign-in, lower memory usage, and improved dark mode and accessibility"
       ]
     },
+    "1.7.1": {
+      "date": "2026-03-04",
+      "highlights": [
+        "Share incidents with your attorney - Send individual incident details securely, with version history so everyone stays in sync. Free for all users.",
+        "CustodyComms for iOS - View shared incidents on your iPhone. Free on the App Store.",
+        "TalkingParents support - Import your TalkingParents messages directly into CustodyComms",
+        "Faster and more reliable - Quicker startup, lower memory usage, and graceful recovery",
+        "Accessibility improvements - Better contrast, keyboard navigation, and screen reader support",
+        "Dark mode polish - Login, signup, and all screens now look great in dark mode",
+        "Stronger security - Refreshed all security credentials and hardened the app end-to-end"
+      ]
+    },
+    "1.6.0": {
+      "date": "2026-02-15",
+      "highlights": [
+        "Security remediation — 18 fixes across CRITICAL, HIGH, and MEDIUM findings",
+        "TalkingParents plugin — Full support for TalkingParents message imports",
+        "CCM sharing hardening — Encrypted cross-platform case sharing",
+        "Firebase Security Rules update — Tighter access controls"
+      ]
+    },
     "1.5.6": {
       "date": "2026-02-06",
       "highlights": [
-        "Fixed Forensic exports - Appendix D now works correctly in multi-exhibit exports",
-        "Smoother export experience - Export settings reset properly between sessions",
-        "Dark Mode polish - FRE 902(14) certification section styled for dark mode",
-        "Enhanced security - Comprehensive security hardening across the application"
+        "Fixed Forensic exports — Appendix D (Message Table) now works correctly in multi-exhibit exports",
+        "Smoother export experience — Export settings reset properly between sessions",
+        "Dark Mode polish — FRE 902(14) certification section styled for dark mode",
+        "Enhanced security — Comprehensive security hardening across the application"
+      ]
+    },
+    "1.5.5": {
+      "date": "2026-02-05",
+      "highlights": [
+        "Fixed import issue — Drag-and-drop and file selection now work reliably",
+        "Cleaner PDF exports — Reduced spacing between messages for more compact, readable evidence packages",
+        "Faster demo refresh — Old cached screenshots are automatically cleared when demo data updates",
+        "Stability improvements — Various bug fixes and performance optimizations"
+      ]
+    },
+    "1.5.0": {
+      "date": "2026-01-30",
+      "highlights": [
+        "Dark Mode is here — Choose Light, Dark, or match your system settings automatically",
+        "Android SMS support — Import XML backups from SMS Backup & Restore",
+        "Stronger Evidence Protection — Pre-export verification ensures source files haven't been modified",
+        "Sign your affidavit electronically — FRE 902(14) certification directly in the app",
+        "Redesigned Help Center — Interactive Quick Start Guide with progress tracking",
+        "Easier multi-file imports — Clear popup when dropping multiple files",
+        "Premium polish — Smooth animations, ripple effects, and a more responsive feel"
+      ]
+    },
+    "1.0.0": {
+      "date": "2025-11-24",
+      "highlights": [
+        "Initial release",
+        "Import SMS, email, and messaging app data",
+        "Generate evidence-ready PDF exhibits",
+        "AI-powered sentiment analysis"
       ]
     }
   }

@@ -2,9 +2,9 @@
   "$schema": "1.0",
   "description": "CustodyComms Update Manifest - Controls forced updates and version requirements",
   "app": {
-    "version": "2.0.0",
+    "version": "2.0.1",
     "channel": "stable",
-    "releaseDate": "2026-10-13"
+    "releaseDate": "2026-10-16"
   },
   "forceUpdate": {
     "_doc": "appliesTo NAMES WHO THIS FORCE UPDATE IS FOR, as <process.platform>-<process.arch> keys. A client whose platform/arch cannot fetch a listed target is NOT blocked. It is REQUIRED whenever enabled is true: from v2.0 on, a forceUpdate block with no appliesTo is treated as FORCE_UPDATE_NO_SCOPE_DECLARED and blocks nobody. That is deliberate — the force-update window is closable:false, so blocking a client that has no artifact to fetch is an unrecoverable lockout with no server-side rollback. See update/release-targets.js. WARNING: clients at v1.9.0 and below SHIP THE OLD GATE AND IGNORE THIS FIELD ENTIRELY — raising minVersion above what those clients can install locks every one of them out regardless of what is written here.",
@@ -19,8 +19,9 @@
     "offlineGraceDays": 1
   },
   "features": {
-    "_doc": "Remote feature flags. Parsed by update-manager.js (this.manifest.features) and exposed to the renderer via update:get-features → window.appConfig.features. OPS KILL SWITCH: set a flag to false here to dark the corresponding UI surface for all clients on the next manifest fetch — no redeploy. navigator_chat=false darks the Matter Builder 'Ask the AI' live-chat engine (MatterBuilderRailModule.navigatorChatEnabled); the frontend probe ALSO fails closed on any error. NAVIGATOR-CHAT-CUT (owner 2026-09-13): navigator_chat is FALSE at the cut and MatterBuilderRailModule.navigatorChatEnabled() is default-OFF to match — the two must move together, and scripts/cut-mac-update-release.sh refuses the cut unless this key is exactly false. Turning it back on ships an interactive AI chat the owner declined; it is not a cosmetic toggle. NOTE what it does NOT gate: the 'Your guide' panel. Since MB-GUIDE-INFORMATIONAL (0cc90d6a) the panel is matter-builder-render.guide() in EVERY flag state, so darking this flag does not dark the panel.",
-    "navigator_chat": false
+    "_doc": "Remote feature flags. Parsed by update-manager.js (this.manifest.features) and exposed to the renderer via update:get-features → window.appConfig.features. OPS KILL SWITCH: set a flag to false here to dark the corresponding UI surface for all clients on the next manifest fetch — no redeploy. navigator_chat=false darks the Matter Builder 'Ask the AI' live-chat engine (MatterBuilderRailModule.navigatorChatEnabled); the frontend probe ALSO fails closed on any error. NAVIGATOR-CHAT-CUT (owner 2026-09-13): navigator_chat is FALSE at the cut and MatterBuilderRailModule.navigatorChatEnabled() is default-OFF to match — the two must move together, and scripts/cut-mac-update-release.sh refuses the cut unless this key is exactly false. Turning it back on ships an interactive AI chat the owner declined; it is not a cosmetic toggle. NOTE what it does NOT gate: the 'Your guide' panel. Since MB-GUIDE-INFORMATIONAL (0cc90d6a) the panel is matter-builder-render.guide() in EVERY flag state, so darking this flag does not dark the panel. FIX-WHOS-WHO-EXISTING-1014: whos_who_fix=false hides every Fix who's who entry point (the Matter Setup button and callout, the attention banner; window.WhosWhoFix.isEnabled). Default true. It is a renderer switch only: the authenticated POST /api/v1/cases/{uuid}/participants/whos-who stays live (the UI is the only door, a stated residual on the desktop trust boundary).",
+    "navigator_chat": false,
+    "whos_who_fix": true
   },
   "runtime": {
     "version": "1.0.0",

@@ -2,9 +2,9 @@
   "$schema": "1.0",
   "description": "CustodyComms Update Manifest - Controls forced updates and version requirements",
   "app": {
-    "version": "2.0.1",
+    "version": "2.0.3",
     "channel": "stable",
-    "releaseDate": "2026-10-16"
+    "releaseDate": "2026-10-27"
   },
   "forceUpdate": {
     "_doc": "appliesTo NAMES WHO THIS FORCE UPDATE IS FOR, as <process.platform>-<process.arch> keys. A client whose platform/arch cannot fetch a listed target is NOT blocked. It is REQUIRED whenever enabled is true: from v2.0 on, a forceUpdate block with no appliesTo is treated as FORCE_UPDATE_NO_SCOPE_DECLARED and blocks nobody. That is deliberate — the force-update window is closable:false, so blocking a client that has no artifact to fetch is an unrecoverable lockout with no server-side rollback. See update/release-targets.js. WARNING: clients at v1.9.0 and below SHIP THE OLD GATE AND IGNORE THIS FIELD ENTIRELY — raising minVersion above what those clients can install locks every one of them out regardless of what is written here.",
@@ -51,6 +51,7 @@
   },
   "changelog": {
     "2.0.3": {
+      "date": "2026-10-27",
       "highlights": [
         "Quick Start: drop in a message file and CustodyComms brings it in and finds your incidents. Matter Builder (Beta) builds the whole matter with you, step by step.",
         "Evidence Library: your documents and photos, beside your messages. One exhibit can now hold messages, documents and photos together.",

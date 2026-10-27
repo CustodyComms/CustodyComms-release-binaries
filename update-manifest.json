@@ -18,6 +18,12 @@
     "message": "Important sign-in + security fix: 1.9.0 finishes closing the sign-in recovery loop that affected some users on prior versions, and adds a multi-tenant data-isolation hardening pass on the AI incident-analysis routes. Recommended for all users; 1-day grace before the update becomes mandatory.",
     "offlineGraceDays": 1
   },
+  "updateReach": {
+    "enabled": false,
+    "intervalHours": 4,
+    "soakHours": 0,
+    "blockedVersions": []
+  },
   "features": {
     "_doc": "Remote feature flags. Parsed by update-manager.js (this.manifest.features) and exposed to the renderer via update:get-features → window.appConfig.features. OPS KILL SWITCH: set a flag to false here to dark the corresponding UI surface for all clients on the next manifest fetch — no redeploy. navigator_chat=false darks the Matter Builder 'Ask the AI' live-chat engine (MatterBuilderRailModule.navigatorChatEnabled); the frontend probe ALSO fails closed on any error. NAVIGATOR-CHAT-CUT (owner 2026-09-13): navigator_chat is FALSE at the cut and MatterBuilderRailModule.navigatorChatEnabled() is default-OFF to match — the two must move together, and scripts/cut-mac-update-release.sh refuses the cut unless this key is exactly false. Turning it back on ships an interactive AI chat the owner declined; it is not a cosmetic toggle. NOTE what it does NOT gate: the 'Your guide' panel. Since MB-GUIDE-INFORMATIONAL (0cc90d6a) the panel is matter-builder-render.guide() in EVERY flag state, so darking this flag does not dark the panel. FIX-WHOS-WHO-EXISTING-1014: whos_who_fix=false hides every Fix who's who entry point (the Matter Setup button and callout, the attention banner; window.WhosWhoFix.isEnabled). Default true. It is a renderer switch only: the authenticated POST /api/v1/cases/{uuid}/participants/whos-who stays live (the UI is the only door, a stated residual on the desktop trust boundary).",
     "navigator_chat": false,

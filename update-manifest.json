@@ -50,6 +50,26 @@
     }
   },
   "changelog": {
+    "2.0.3": {
+      "highlights": [
+        "Quick Start: drop in a message file and CustodyComms brings it in and finds your incidents. Matter Builder (Beta) builds the whole matter with you, step by step.",
+        "Evidence Library: your documents and photos, beside your messages. One exhibit can now hold messages, documents and photos together.",
+        "Overview shows where a matter stands, on one page. Order Rules lets you write down what your parenting order says, in your own words, and connect incidents to it.",
+        "Sign in with Apple or Google. When you share a matter, you choose whether it includes pictures and whether to also send the whole original files.",
+        "Imports now ask you, or refuse and explain, instead of quietly guessing. Incidents you write yourself now survive a re-scan.",
+        "Message times name their time zone and print in the order they were sent. If a file doesn’t say its zone, the app asks you once. Older times it can’t place say “(time zone not recorded)”.",
+        "Your exported documents have changed: a rewritten certification page with a chain-of-custody affidavit, and custody page times marked “(UTC)”. An export may not match a v1.9 export, so re-export and compare.",
+        "Quick Start and Matter Builder now show who they found in each file before saving anything. Match a nickname, phone number or email to the right person with one click, or start over.",
+        "If a matter matched the wrong people, Matter Setup now has Fix who’s who to put it right.",
+        "Quick Start and Timeline now show each incident’s full AI analysis, as Matter Builder and Messages do.",
+        "Exhibit binders now finish on Windows. Before this update, every binder export on Windows stopped with an error.",
+        "Exports whose name contains an emoji now finish on Windows.",
+        "Court binders print more cleanly. Long titles stay on the page, Bates labels no longer print over message text, and the cover says how many more exhibits are in the contents.",
+        "Quick Start and Matter Builder now take a zip you made of a message export, and a short coParenter reply such as OK is no longer left out.",
+        "When Quick Start or Import Messages can’t read a file, they ask which app made it, suggest an export CustodyComms can read when they know one, and let you tell Support what happened.",
+        "Smaller fixes: the analysis progress screen now closes when a run ends, a slow sign in now says so instead of spinning, and close buttons are easier to see in light mode."
+      ]
+    },
     "2.0.2": {
       "date": "2026-10-23",
       "highlights": [

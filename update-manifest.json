@@ -19,7 +19,7 @@
     "offlineGraceDays": 1
   },
   "updateReach": {
-    "enabled": false,
+    "enabled": true,
     "intervalHours": 4,
     "soakHours": 0,
     "blockedVersions": []

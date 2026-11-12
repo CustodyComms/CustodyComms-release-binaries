@@ -21,7 +21,7 @@
   "updateReach": {
     "enabled": true,
     "intervalHours": 4,
-    "soakHours": 24,
+    "soakHours": 0,
     "blockedVersions": []
   },
   "features": {

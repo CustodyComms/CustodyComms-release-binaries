@@ -2,13 +2,13 @@
   "$schema": "1.0",
   "description": "CustodyComms Update Manifest - Controls forced updates and version requirements",
   "app": {
-    "version": "2.0.4",
+    "version": "2.0.5",
     "channel": "stable",
-    "releaseDate": "2026-11-12"
+    "releaseDate": "2026-11-27"
   },
   "forceUpdate": {
     "_doc": "appliesTo NAMES WHO THIS FORCE UPDATE IS FOR, as <process.platform>-<process.arch> keys. A client whose platform/arch cannot fetch a listed target is NOT blocked. It is REQUIRED whenever enabled is true: from v2.0 on, a forceUpdate block with no appliesTo is treated as FORCE_UPDATE_NO_SCOPE_DECLARED and blocks nobody. That is deliberate — the force-update window is closable:false, so blocking a client that has no artifact to fetch is an unrecoverable lockout with no server-side rollback. See update/release-targets.js. WARNING: clients at v1.9.0 and below SHIP THE OLD GATE AND IGNORE THIS FIELD ENTIRELY — raising minVersion above what those clients can install locks every one of them out regardless of what is written here.",
-    "_lock": "O-12 (LOCKED-DECISIONS-2026-09-03.md:56): force-update is OFF for the v2.0 cut; the ordinary optional update prompt is the only thing users see. enabled:false is the lock. Do NOT flip this to true as part of a version bump — it is an owner contract change, and frontend/tests/update/force-update-arch-gate.test.js pins it to false so the flip cannot land silently. minVersion/appliesTo/severity/message are kept in their documented shape so the block stays a template, not a fragment.",
+    "_lock": "O-12 (LOCKED-DECISIONS-2026-09-03.md:56), restated by REQUIRED-UPDATE-205 (2026-11-14): forceUpdate stays OFF while any client at 2.0.4 or below exists. Every 1.9.0 client reads this block and ships the old gate, so enabled:true with a minVersion above what it can install locks it out at launch behind a window it cannot close. To ask 2.0.5 and later to move to a newer version, use requiredUpdate below: only 2.0.5+ reads it, and it is never a launch gate. enabled:false is the lock. Do NOT flip this to true as part of a version bump: it is an owner contract change, frontend/tests/update/force-update-arch-gate.test.js pins it to false, and scripts/update-manifest-stamp.cjs refuses to publish a flip. minVersion/appliesTo/severity/message are kept in their documented shape so the block stays a template, not a fragment.",
     "enabled": false,
     "minVersion": "1.9.0",
     "appliesTo": [
@@ -17,6 +17,22 @@
     "severity": "HIGH",
     "message": "Important sign-in + security fix: 1.9.0 finishes closing the sign-in recovery loop that affected some users on prior versions, and adds a multi-tenant data-isolation hardening pass on the AI incident-analysis routes. Recommended for all users; 1-day grace before the update becomes mandatory.",
     "offlineGraceDays": 1
+  },
+  "requiredUpdate": {
+    "_doc": "REQUIRED-UPDATE-205 (owner, 14 Nov 2026). Asks 2.0.5 and later, running, to move to minVersion. Read ONLY by 2.0.5+ and only while updateReach is on; 1.9.0 to 2.0.4 never read this key. format cc-required-update/1. enabled true|false. id: letters, digits, - and _ (no date written with dashes: write ru-20261201-a); a new id resets snoozes and the first-shown time. level: notice (the Update ready button reads Update required, plus one line a day the person can dismiss) | required (a window with Later, which snoozes for snoozeHours, 1 to 24) | required_now (no Later: Restart and update, shown once the update is downloaded, a line over the app until then; honoured only from a manifest that verified this session, the signed feed; otherwise it acts as required). required escalates to required_now at requiredAfter, never sooner than 24 h after the person first saw it. Applies when fromVersion <= the app < minVersion, the computer is one appliesTo names and can install, the feed offers a version >= minVersion, and the block has not expired (expiresAt, server time, at most 60 days out). The app restarts only after the person clicks, and never while an import, a scan, an export or a build runs. 3 failed downloads lift it for that session, and a stalled download is a line; 2 installs that did not take lift it for 24 h. message {title <= 60, body <= 280}: plain text, no link, no HTML; anything else shows the built-in words (LEGAL clears both). Off switches, narrow to broad: enabled false (scripts/rollback/level1-required-update-off.sh), expiresAt, updateReach.enabled false, updateReach.watch false, CC_UPDATE_REACH=0 on one computer. scripts/update-manifest-stamp.cjs refuses to publish a block that does not validate, and required_now while a feed's latest is below minVersion. Spec: .audit/REQUIRED-UPDATE-205/plan.md.",
+    "format": "cc-required-update/1",
+    "enabled": false,
+    "id": "ru-template",
+    "level": "required",
+    "minVersion": "2.0.6",
+    "fromVersion": "2.0.5",
+    "appliesTo": [
+      "darwin-arm64",
+      "win32-x64"
+    ],
+    "requiredAfter": "2026-12-03T15:00:00Z",
+    "snoozeHours": 4,
+    "expiresAt": "2026-12-20T00:00:00Z"
   },
   "updateReach": {
     "enabled": true,
